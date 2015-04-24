@@ -1,3 +1,5 @@
+import functools
+
 def dual_decorator(func):
     """This is a decorator that converts a paramaterized decorator for no-param use."""
     # modified from http://stackoverflow.com/a/10288927/1231454.
