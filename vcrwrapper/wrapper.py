@@ -9,7 +9,6 @@ VCR_CASSETTE_PATH = settings.VCR_CASSETTE_PATH
 MAKE_EXTERNAL_REQUESTS = os.environ.get('MAKE_EXTERNAL_REQUESTS') == 'TRUE'
 RECORD_CASSETTES = os.environ.get('RECORD_CASSETTES', 'none')
  
- 
 @dual_decorator  # convert a paramaterized decorator for no-arg use (https://gist.github.com/simon-weber/9956622).
 def external_call(*args, **kwargs):
     """Enable vcrpy to store/mock http requests.
@@ -54,7 +53,7 @@ def external_call(*args, **kwargs):
     default_vcr_kwargs = {
         'cassette_library_dir': VCR_CASSETTE_PATH,
         'record_mode': RECORD_CASSETTES,
-        'match_on': ('method', 'scheme', 'host', 'port', 'path', 'query'),
+        'match_on': ('method', 'scheme', 'host', 'port', 'path', 'json_query'),
         'filter_headers': ['authorization']
     }
  
