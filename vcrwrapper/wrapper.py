@@ -47,7 +47,7 @@ def external_call(*args, **kwargs):
     default_vcr_kwargs = {
         'cassette_library_dir': VCR_CASSETTE_PATH,
         'record_mode': 'none',
-        'filter_headers' = ['authorization']
+        'filter_headers': ['authorization']
     }
  
     default_vcr_kwargs.update(vcr_kwargs)
