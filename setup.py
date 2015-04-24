@@ -6,7 +6,7 @@ from setuptools.command.test import test as TestCommand
 
 setup(
     name='vcrwrapper',
-    version='0.0.7',
+    version='0.0.8',
     description=(
         "Wrapper around vcr"
     ),
