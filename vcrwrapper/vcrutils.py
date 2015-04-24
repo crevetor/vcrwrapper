@@ -1,8 +1,32 @@
 from contextlib import contextmanager
 import inspect
+import json
  
 import vcr
  
+def json_query_matcher(r1, r2):
+    """
+    Match two queries by decoding json-encoded query args and comparing them
+    """
+    if len(r1.query) != len(r2.query):
+        return False
+
+    for i,q in enumerate(r1.query):
+        if q[0] != r2.query[i][0]:
+            return False
+
+        try:
+            j1 = json.loads(q[1])
+            j2 = json.loads(r2.query[i][1])
+            if j1 != j2:
+                return False
+        except ValueError:
+            # If we were unable to decode json just compare the values normally
+            if q[1] != r2.query[i][1]:
+                return False
+
+    return True
+
 def get_vcr(*args, **kwargs):
     """Return a VCR, with our custom matchers registered.
 
@@ -10,6 +34,7 @@ def get_vcr(*args, **kwargs):
  
     v = vcr.VCR(*args, **kwargs)
     # register custom matchers here
+    v.register_matcher('json_query', json_query_matcher)
  
     return v
  
