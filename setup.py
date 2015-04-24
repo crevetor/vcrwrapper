@@ -14,7 +14,7 @@ setup(
     author_email='a.reversat@gmail.com',
     url='https://github.com/crevetor/vcrwrapper',
     packages=find_packages(exclude=("tests*",)),
-    install_requires=['vcr', 'Django'],
+    install_requires=['vcrpy', 'Django'],
     license='GPLv2',
     classifiers=[
         'Development Status :: 4 - Beta',
