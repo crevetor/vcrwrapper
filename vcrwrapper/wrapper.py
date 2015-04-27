@@ -1,6 +1,5 @@
 import os
 from functools import wraps
-from django.conf import settings
 from . import vcrutils
 from .utils import dual_decorator
 from .exceptions import InvalidModeException
