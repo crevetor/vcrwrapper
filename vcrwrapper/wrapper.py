@@ -5,9 +5,9 @@ from . import vcrutils
 from .utils import dual_decorator
 from .exceptions import InvalidModeException
  
-VCR_CASSETTE_PATH = settings.VCR_CASSETTE_PATH
-MAKE_EXTERNAL_REQUESTS = os.environ.get('MAKE_EXTERNAL_REQUESTS') == 'TRUE'
-RECORD_CASSETTES = os.environ.get('RECORD_CASSETTES', 'none')
+VCR_CASSETTE_PATH = os.environ.get('VCR_CASSETTE_PATH')
+MAKE_EXTERNAL_REQUESTS = os.environ.get('VCR_MAKE_EXTERNAL_REQUESTS') == 'TRUE'
+RECORD_MODE = os.environ.get('VCR_RECORD_MODE', 'none')
  
 @dual_decorator  # convert a paramaterized decorator for no-arg use (https://gist.github.com/simon-weber/9956622).
 def external_call(*args, **kwargs):
@@ -47,12 +47,12 @@ def external_call(*args, **kwargs):
     vcr_args = args
     vcr_kwargs = kwargs
 
-    if RECORD_CASSETTES not in ['once', 'new_episode', 'none', 'all']:
-        raise InvalidModeException('Invalid record_mode {} please check your RECORD_CASSETTES environment variable', RECORD_CASSETTES)
+    if RECORD_MODE not in ['once', 'new_episode', 'none', 'all']:
+        raise InvalidModeException('Invalid record_mode {} please check your VCR_RECORD_MODE environment variable', RECORD_MODE)
  
     default_vcr_kwargs = {
         'cassette_library_dir': VCR_CASSETTE_PATH,
-        'record_mode': RECORD_CASSETTES,
+        'record_mode': RECORD_MODE,
         'match_on': ('method', 'scheme', 'host', 'port', 'path', 'json_query'),
         'filter_headers': ['authorization']
     }
